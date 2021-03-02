@@ -48,7 +48,6 @@ row, col = 1, 0
 for i in range(len(result_dicts)):
     exe_production = result_dicts[i]['exe_production']
     exe_production_result = re.findall(r'\d\d.\d\d.\d{4}', exe_production)
-    print(exe_production_result)
     if len(exe_production_result) == 1:
         worksheet.write_string(row, col, exe_production_result[0])
     else:
