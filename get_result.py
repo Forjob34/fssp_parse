@@ -1,6 +1,7 @@
 import requests
 import json
 import datetime
+import time
 from settings import token, base_url
 
 
@@ -33,10 +34,11 @@ print(name)
 def get_task(token, region, name):
     """ Creating a task for APi processing """
 
-    params = {'token': token,
-              'region': region,
-              'name': name
-              }
+    params = {
+        'token': token,
+        'region': region,
+        'name': name
+    }
 
     r = requests.get(base_url + 'search/legal', params=params)
     resp_data = r.json()
@@ -63,6 +65,8 @@ def get_task_status(token, task):
         while task_status['response']['status'] != 0:
             r = requests.get(base_url + 'status', params=params)
             task_status = r.json()
+            print(task_status['response']['status'])
+            time.sleep(8)
 
         return task_status['response']['status']
     else:
@@ -93,5 +97,5 @@ def get_result(token, task):
             json.dump(result, write_file)
 
 
-result = get_result(token, task)
+get_result(token, task)
 print('all done')
